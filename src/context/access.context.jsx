@@ -1,4 +1,4 @@
-import { createContext, useState} from "react";
+import { createContext, useState, useEffect } from "react";
 import { loginRequest, logoutRequest } from "../services/access.services.js"
 
 export const accessContext = createContext();
@@ -15,6 +15,7 @@ export const AccessProvider = ({ children }) => {
             setUser(res.data)
             setAuth(true)
             console.log('Este es el user', user)
+
         } catch (error) {
             console.log(error)
             alert("Credenciales no válidas")

@@ -1,11 +1,10 @@
-import { useAuth } from "../context/access.context.jsx"
-import { Navigate, Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom";
+import { useContext } from "react";
+
+import { accessContext } from "../context/access.context.jsx";
 
 export const ProtectedRoutes = () => {
+    const { auth } = useContext(accessContext); // Extraer 'auth' del contexto
 
-    const { auth } = useAuth()
-
-    if (!auth) return <Navigate to="/" replace />
-    return (<Outlet />)
-}
-
+    return auth ? <Outlet /> : <Navigate to='/' />;
+};

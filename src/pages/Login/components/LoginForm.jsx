@@ -1,47 +1,43 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button } from '@mui/material';
-
 import { accessContext } from '../../../context/access.context.jsx';
 
+import { Btn } from '../../../components/Btn.jsx'
 
-export default function loginForm() {
-
+export default function LoginForm() {
     const { register, handleSubmit } = useForm();
+    const navigate = useNavigate();
+    const { userLogin } = useContext(accessContext);
 
-    const navigate = useNavigate()
-    const { userLogin } = useContext(accessContext)
-
-    const onLoginSubmit = handleSubmit(async (user) => { //the parameter is the data received from the form
-        userLogin(user)
-        alert("Sesión iniciada")
-        navigate('/main')
-
-    })
+    const onLoginSubmit = async (user) => {
+        try {
+            await userLogin(user); // user is the data received from the form (even if you want to call it potito)
+            navigate('/main');
+        } catch (error) {
+            alert("Credenciales no válidas");
+        }
+    };
 
     return (
-        <form className='flex flex-col w-1/2 justify-center items-center gap-4 bg-sky-200 p-4'
-            onSubmit={onLoginSubmit}>
-            <TextField className='w-full bg-white text-sky-800 placeholder-white'
+        <form
+            className='flex flex-col w-full justify-center items-center gap-4 rounded-lg p-4'
+            onSubmit={handleSubmit(onLoginSubmit)}
+        >
+            <input
+                className='w-2/3 bg-secondary bg-opacity-20 border-b-secondary border-b-2 p-2 h-14 text-text placeholder-text placeholder-opacity-45 rounded-t-lg'
                 {...register('email')}
-                label="eMail"
                 type="email"
-                autoComplete="current-email"
-                variant="filled"
+                placeholder='eMail'
+
             />
-            <TextField className='w-full bg-white text-sky-800 placeholder-sky-800'
+            <input
+                className='w-2/3 bg-secondary bg-opacity-20 border-b-secondary border-b-2 p-2 h-14 text-text placeholder-text placeholder-opacity-45 rounded-t-lg'
                 {...register('password')}
-                label="Password"
                 type="password"
-                autoComplete="current-password"
-                variant="filled"
+                placeholder='Password'
             />
-            <Button className='w-1/2'
-                variant="contained"
-                type="submit">
-                Log In
-            </Button>
+            <Btn type='submit' children='Log In' />
         </form>
-    )
+    );
 }

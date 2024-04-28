@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@mui/material'
+// import { Button } from '@mui/material'
 
 import { accessContext } from '../../../context/access.context.jsx';
 
@@ -17,7 +17,7 @@ export default function LogoutBtn() {
 
     return (
         <>
-            <Button variant="contained" onClick={onLogoutClick}>Log Out</Button>
+            {/* <Button variant="contained" onClick={onLogoutClick}>Log Out</Button> */}
         </>
     )
 }
