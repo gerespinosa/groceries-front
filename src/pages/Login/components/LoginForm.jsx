@@ -1,24 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { accessContext } from '../../../context/access.context.jsx';
-
-import { Btn } from '../../../components/Btn.jsx'
+import { useAccess } from '../../../context/access.context.jsx';
+import { LoginBtn } from './LoginBtn.jsx';
 
 export default function LoginForm() {
     const { register, handleSubmit } = useForm();
-    const navigate = useNavigate();
-    const { userLogin } = useContext(accessContext);
+
+    const [auth, setAuth] = useState(false);
+
+    const { userLogin } = useAccess();
 
     const onLoginSubmit = async (user) => {
         try {
-            await userLogin(user); // user is the data received from the form (even if you want to call it potito)
-            navigate('/main');
+            await userLogin(user);
+            setAuth(true);
+            if (auth == true) {
+                console.log('usuario autenticado');
+            }
+
         } catch (error) {
             alert("Credenciales no válidas");
         }
     };
-
     return (
         <form
             className='flex flex-col w-full justify-center items-center gap-4 rounded-lg p-4'
@@ -29,7 +32,6 @@ export default function LoginForm() {
                 {...register('email')}
                 type="email"
                 placeholder='eMail'
-
             />
             <input
                 className='w-2/3 bg-secondary bg-opacity-20 border-b-secondary border-b-2 p-2 h-14 text-text placeholder-text placeholder-opacity-45 rounded-t-lg'
@@ -37,7 +39,7 @@ export default function LoginForm() {
                 type="password"
                 placeholder='Password'
             />
-            <Btn type='submit' children='Log In' />
+            <LoginBtn type='submit' children='Log In' />
         </form>
     );
 }

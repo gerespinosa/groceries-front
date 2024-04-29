@@ -10,6 +10,7 @@ import Navbar from './components/Navbar.jsx'
 // PAGES
 import LoginPage from './pages/Login/LoginPage.jsx'
 import MainPage from './pages/Main/MainPage.jsx'
+import ListsPage from './pages/Lists/ListsPage.jsx'
 
 // MIDDLEWARE
 import { ProtectedRoutes } from './middleware/ProtectedRoutes.jsx'
@@ -22,7 +23,8 @@ function App() {
           <Route path='/' element={<LoginPage />} />
           <Route element={<ProtectedRoutes />}>
             <Route path='*' element={<Navbar />} /> {/* Navbar for all protected routes */}
-            <Route path='/main' element={<MainPage />} />
+            <Route path='/main/:userId' element={<MainPage />} />
+            <Route path='/user/:userId/lists' element={<ListsPage />} />
           </Route>
         </Routes>
       </AccessProvider>

@@ -12,6 +12,7 @@ export default {
       'tertiary': '#f59e0b',
       'darker': '#78350f',
       'lighter': '#fffbeb',
+      'black': '#000',
       'text': '#052E16'
     },
     fontFamily: {
