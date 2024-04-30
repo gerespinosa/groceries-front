@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { AppBar, Box, IconButton, Typography, Menu, Avatar, Tooltip, MenuItem } from '@mui/material';
-
-const settings = ['Mis Listas', 'Perfil', 'Logout'];
+import { AppBar, Box, IconButton, Menu, Avatar, Tooltip, MenuItem } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { useAccess } from '../context/access.context';
 
 export default function Navbar() {
+
+    const { userLogout } = useAccess()
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -14,6 +16,11 @@ export default function Navbar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const onLogoutClick = () => {
+        userLogout()
+        alert("Sesión cerrada")
+    }
 
 
     return (
@@ -44,11 +51,13 @@ export default function Navbar() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">{setting}</Typography>
+                        {
+                            <MenuItem onClick={handleCloseUserMenu} sx={{ display: 'flex', flexDirection: 'column', gap: 1, justifyContent: 'center', alignItems: 'start' }}>
+                                <Link>Mis Listas</Link>
+                                <Link>Ajustes</Link>
+                                <Link onClick={onLogoutClick} >Log Out</Link>
                             </MenuItem>
-                        ))}
+                        }
                     </Menu>
                 </Box>
             </AppBar>

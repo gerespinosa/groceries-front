@@ -1,5 +1,4 @@
 import React from 'react'
-// import LogoutBtn from './components/LogoutBtn.jsx'
 import Navbar from '../../components/Navbar.jsx'
 import { useAccess } from '../../context/access.context.jsx'
 import MainMenu from './components/MainMenu.jsx'

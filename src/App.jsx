@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // CONTEXT
 import { AccessProvider } from './context/access.context.jsx'
+import { ListsProvider } from './context/lists.context.jsx'
 
 // COMPONENTS
 import Navbar from './components/Navbar.jsx'
@@ -19,14 +20,16 @@ function App() {
   return (
     <BrowserRouter>
       <AccessProvider>
-        <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route element={<ProtectedRoutes />}>
-            <Route path='*' element={<Navbar />} /> {/* Navbar for all protected routes */}
-            <Route path='/main/:userId' element={<MainPage />} />
-            <Route path='/user/:userId/lists' element={<ListsPage />} />
-          </Route>
-        </Routes>
+        <ListsProvider>
+          <Routes>
+            <Route path='/' element={<LoginPage />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path='*' element={<Navbar />} /> {/* Navbar for all protected routes */}
+              <Route path='/main/:userId' element={<MainPage />} />
+              <Route path='/user/:userId/lists' element={<ListsPage />} />
+            </Route>
+          </Routes>
+        </ListsProvider>
       </AccessProvider>
     </BrowserRouter>
   )

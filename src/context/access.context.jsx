@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginRequest, logoutRequest } from "../services/access.services.js"
+import Cookies from 'js-cookie'
 
 export const accessContext = createContext();
 
@@ -36,7 +37,9 @@ export const AccessProvider = ({ children }) => {
     // LOGOUT - FRONTEND
     const userLogout = async () => {
         try {
-            const res = await logoutRequest()
+            await logoutRequest()
+            Cookies.remove('pollita')
+            console.log('Sesion cerrada supolla')
             setUser(null)
             alert("Sesión cerrada")
             setAuth(false)
