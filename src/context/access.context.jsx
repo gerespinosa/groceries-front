@@ -20,9 +20,6 @@ export const AccessProvider = ({ children }) => {
             const userFound = res.data.userFound
             setUserFound(userFound)
             setAuth(true)
-            // console.log('Este es el user', user)
-            // console.log('Esta es la respuesta', userFound)
-            // console.log('Este es el userId', userFound._id)
             if (userFound && userFound._id) {
                 navigate(`/main/${userFound._id}`);
             }
